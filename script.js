@@ -10,7 +10,7 @@ function debounce(fn, delay) {
         clearTimeout(timer);
         timer = setTimeout(() => {
             fn.apply(this, args);
-        }, delay)
+        }, delay);
     }
 }
 
@@ -33,19 +33,19 @@ async function getRepo(repoName) {
 
 // Добавляем результаты поиска
 async function addDropdown(e) {
-    const data = await getRepo(e.target.value)
+    const data = await getRepo(e.target.value);
     const fragment = document.createDocumentFragment();
 
     searchList.innerHTML = '';
 
     data.forEach(repo => {
-        const searchItem = document.createElement('li')
-        searchItem.classList.add('search-list__item')
+        const searchItem = document.createElement('li');
+        searchItem.classList.add('search-list__item');
         searchItem.textContent = `${repo.name}`;
         fragment.append(searchItem)
 
         searchItem.addEventListener('click', () => {
-            createRepoCard(repo.name, repo.owner.login, repo.forks_count)
+            createRepoCard(repo.name, repo.owner.login, repo.forks_count);
             wrapperInput.value = '';
             searchList.innerHTML = '';
         })
@@ -57,7 +57,7 @@ async function addDropdown(e) {
 // Создаем и добавляем выбранный пользователем репозиторий
 function createRepoCard(name, owner, stars) {
     const repoCard = document.createElement('li');
-    repoCard.classList.add('repo-list__repo-card', 'repo-card')
+    repoCard.classList.add('repo-list__repo-card', 'repo-card');
 
     repoCard.innerHTML = `<div class="repo-card__content">
                             <span class="repo-card__text">Name: ${name}</span>
@@ -66,14 +66,13 @@ function createRepoCard(name, owner, stars) {
                         </div>
                             <div class="repo-card__delete-btn"></div>`;
                                 
-    repoList.append(repoCard);
-                            
+    repoList.append(repoCard);                   
 }
 
 // Обертка
-addDropdown = debounce(addDropdown, 500)
+addDropdown = debounce(addDropdown, 500);
 
-wrapperInput.addEventListener('input', (e) => addDropdown(e))
+wrapperInput.addEventListener('input', (e) => addDropdown(e));
 
 repoList.addEventListener('click', (e) => {
     let target = e.target;
@@ -82,7 +81,7 @@ repoList.addEventListener('click', (e) => {
         const repoCard = target.closest('.repo-list__repo-card');
         
         if (repoCard) {
-            repoCard.remove()
+            repoCard.remove();
         }
     }
-})
+});
