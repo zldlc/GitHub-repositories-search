@@ -33,6 +33,7 @@ async function getRepo(repoName) {
 
 // Добавляем результаты поиска
 async function addDropdown(e) {
+    try {
     const data = await getRepo(e.target.value);
     const fragment = document.createDocumentFragment();
 
@@ -52,6 +53,10 @@ async function addDropdown(e) {
     });
     
     searchList.append(fragment);
+    }
+    catch(err) {
+        console.log(err);
+    }
 }
 
 // Создаем и добавляем выбранный пользователем репозиторий
